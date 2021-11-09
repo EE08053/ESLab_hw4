@@ -27,7 +27,6 @@ const static char DEVICE_NAME[] = "B08901053";
 
 static EventQueue event_queue(/* event count */ 10 * EVENTS_EVENT_SIZE);
 
-
 class BatteryDemo : ble::Gap::EventHandler {
 public:
     BatteryDemo(BLE &ble, events::EventQueue &event_queue) :
@@ -114,10 +113,8 @@ private:
     void button_pressed(void) {
         _event_queue.call(Callback<void(bool)>(_button_service, &ButtonService::updateButtonState), true);
     }
-
     void button_released(void) {
         _event_queue.call(Callback<void(bool)>(_button_service, &ButtonService::updateButtonState), false);
-        
     }
 
     void blink(void) {
