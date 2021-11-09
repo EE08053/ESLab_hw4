@@ -55,7 +55,7 @@ for svc in dev.services:
     print(str(svc))
 
 try:
-    # connect the three services
+    # connecting the three services
     ButtonService = dev.getServiceByUUID(UUID(BUTTON_SERVICE_UUID))
     Button_State_Ch = ButtonService.getCharacteristics(UUID(BUTTON_STATE_CHARACTERISTIC_UUID))[0]
     print(Button_State_Ch)
@@ -68,12 +68,12 @@ try:
     Led_Control_Ch = LedService.getCharacteristics(UUID(LED_CHARACTERISTIC_UUID))[0]
     print(Led_Control_Ch)
 
-    # Read: Student ID 
+    # 1. Read: Student ID 
     if ID_State_Ch.supportsRead():
         id = ID_State_Ch.read().decode('utf-8')
         print("Student ID : " + id)
 
-    # Notify: Button State
+    # 2. Notify: Button State
     dev.withDelegate(NotifyDelegate(Button_State_Ch.getHandle()))
     enable_notify(Button_State_Ch)
 
@@ -85,7 +85,7 @@ try:
             print("button state:" + b.decode('utf-8'))
             break
 
-    # Write: Control LED 
+    # 3. Write: Control LED 
     if "WRITE" in Led_Control_Ch.propertiesToString():
         flag = False
         for i in range(6):
